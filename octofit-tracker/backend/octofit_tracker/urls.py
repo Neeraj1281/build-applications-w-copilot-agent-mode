@@ -47,7 +47,7 @@ def custom_api_root(request):
     })
 
 urlpatterns = [
-    path('api/', custom_api_root, name='api-root'),
+    path('', api_root, name='api-root'),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
 ]
