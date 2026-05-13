@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { getApiBaseUrl } from '../api';
+//import { getApiBaseUrl } from '../api';
 
 const Leaderboard = () => {
   const [leaders, setLeaders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const endpoint = `${getApiBaseUrl()}/api/leaderboard/`;
+  //const endpoint = `${getApiBaseUrl()}/api/leaderboard/`;
+  const codespace = process.env.REACT_APP_CODESPACE_NAME;
+  const endpoint = codespace
+    ? `https://${codespace}-8000.app.github.dev/api/leaderboard/`
+    : 'http://localhost:8000/api/leaderboard/';
 
   useEffect(() => {
     const fetchLeaders = async () => {
@@ -133,8 +137,5 @@ const Leaderboard = () => {
     </div>
   );
 };
-
-// export default Leaderboard;
-// };
 
 export default Leaderboard;

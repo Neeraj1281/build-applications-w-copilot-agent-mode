@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { getApiBaseUrl } from '../api';
+//import { getApiBaseUrl } from '../api';
 
 const Teams = () => {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const endpoint = `${getApiBaseUrl()}/api/teams/`;
+  //const endpoint = `${getApiBaseUrl()}/api/teams/`;
+  const codespace = process.env.REACT_APP_CODESPACE_NAME;
+  const endpoint = codespace
+    ? `https://${codespace}-8000.app.github.dev/api/teams/`
+    : 'http://localhost:8000/api/teams/';
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -123,9 +127,5 @@ const Teams = () => {
     </div>
   );
 };
-
-// export default Teams;
-//   );
-// };
 
 export default Teams;

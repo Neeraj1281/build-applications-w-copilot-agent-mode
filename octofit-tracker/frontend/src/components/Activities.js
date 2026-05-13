@@ -119,9 +119,3 @@ const Activities = () => {
 };
 
 export default Activities;
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Activities;

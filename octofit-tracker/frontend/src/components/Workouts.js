@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { getApiBaseUrl } from '../api';
+//import { getApiBaseUrl } from '../api';
 
 const Workouts = () => {
   const [workouts, setWorkouts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const endpoint = `${getApiBaseUrl()}/api/workouts/`;
+  //const endpoint = `${getApiBaseUrl()}/api/workouts/`;
+  const codespace = process.env.REACT_APP_CODESPACE_NAME;
+  const endpoint = codespace
+    ? `https://${codespace}-8000.app.github.dev/api/workouts/`
+    : 'http://localhost:8000/api/workouts/';
 
   useEffect(() => {
     const fetchWorkouts = async () => {
@@ -101,7 +105,7 @@ const Workouts = () => {
                             {workout.type || 'General'}
                           </span>
                         </td>
-                        <td className="align-middle fw-semibold">{workout.name || workout.type || 'Unknown'}</td>
+                        <td className="align-middle fw-semibold">{workout.name || workout.workout || 'Unknown'}</td>
                         <td className="align-middle">
                           <span className="badge bg-light text-dark">{workout.duration || 0} min</span>
                         </td>
