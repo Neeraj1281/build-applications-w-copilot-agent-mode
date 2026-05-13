@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { getApiBaseUrl } from '../api';
 
 const Workouts = () => {
   const [workouts, setWorkouts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const endpoint = `${process.env.REACT_APP_CODESPACE_URL}/api/workouts/`;
+  const endpoint = `${getApiBaseUrl()}/api/workouts/`;
 
   useEffect(() => {
     const fetchWorkouts = async () => {
@@ -12,7 +13,7 @@ const Workouts = () => {
         const response = await fetch(endpoint);
         const data = await response.json();
         console.log('Fetched workouts data:', data);
-        setWorkouts(data.results || data);
+        setWorkouts(data.results || data || []);
       } catch (error) {
         console.error('Error fetching workouts:', error);
       } finally {

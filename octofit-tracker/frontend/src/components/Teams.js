@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { getApiBaseUrl } from '../api';
 
 const Teams = () => {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
-  const endpoint = `${process.env.REACT_APP_CODESPACE_URL}/api/teams/`;
+  const endpoint = `${getApiBaseUrl()}/api/teams/`;
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -12,7 +13,7 @@ const Teams = () => {
         const response = await fetch(endpoint);
         const data = await response.json();
         console.log('Fetched teams data:', data);
-        setTeams(data.results || data);
+        setTeams(data.results || data || []);
       } catch (error) {
         console.error('Error fetching teams:', error);
       } finally {

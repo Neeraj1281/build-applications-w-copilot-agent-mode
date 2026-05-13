@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { getApiBaseUrl } from '../api';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const endpoint = `${process.env.REACT_APP_CODESPACE_URL}/api/users/`;
+  const endpoint = `${getApiBaseUrl()}/api/users/`;
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -12,7 +13,7 @@ const Users = () => {
         const response = await fetch(endpoint);
         const data = await response.json();
         console.log('Fetched users data:', data);
-        setUsers(data.results || data);
+        setUsers(data.results || data || []);
       } catch (error) {
         console.error('Error fetching users:', error);
       } finally {

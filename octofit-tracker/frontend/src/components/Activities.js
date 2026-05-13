@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { getApiBaseUrl } from '../api';
 
 const Activities = () => {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
-  const endpoint = `${process.env.REACT_APP_CODESPACE_URL}/api/activities/`;
+  const endpoint = `${getApiBaseUrl()}/api/activities/`;
 
   useEffect(() => {
     const fetchActivities = async () => {
@@ -12,7 +13,7 @@ const Activities = () => {
         const response = await fetch(endpoint);
         const data = await response.json();
         console.log('Fetched activities data:', data);
-        setActivities(data.results || data);
+        setActivities(data.results || data || []);
       } catch (error) {
         console.error('Error fetching activities:', error);
       } finally {
@@ -39,7 +40,7 @@ const Activities = () => {
           <tbody>
             {activities.map((activity) => (
               <tr key={activity.id}>
-                <td>{activity.name}</td>
+                <td>{activity.workout_name || activity.workout || JSON.stringify(activity.workout)}</td>
                 <td>{activity.duration}</td>
                 <td>{activity.calories}</td>
               </tr>

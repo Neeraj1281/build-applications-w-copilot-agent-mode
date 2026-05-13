@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { getApiBaseUrl } from '../api';
 
 const Leaderboard = () => {
   const [leaders, setLeaders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const endpoint = `${process.env.REACT_APP_CODESPACE_URL}/api/leaderboard/`;
+  const endpoint = `${getApiBaseUrl()}/api/leaderboard/`;
 
   useEffect(() => {
     const fetchLeaders = async () => {
@@ -12,7 +13,7 @@ const Leaderboard = () => {
         const response = await fetch(endpoint);
         const data = await response.json();
         console.log('Fetched leaderboard data:', data);
-        setLeaders(data.results || data);
+        setLeaders(data.results || data || []);
       } catch (error) {
         console.error('Error fetching leaderboard:', error);
       } finally {
@@ -38,8 +39,8 @@ const Leaderboard = () => {
           <tbody>
             {leaders.map((leader, idx) => (
               <tr key={leader.id || idx}>
-                <td>{leader.name || leader.username || JSON.stringify(leader)}</td>
-                <td>{leader.points || leader.score || '-'}</td>
+                <td>{leader.user_name || leader.user || JSON.stringify(leader.user)}</td>
+                <td>{leader.score || '-'}</td>
               </tr>
             ))}
           </tbody>
