@@ -11,17 +11,17 @@ import './App.css';
 function App() {
   return (
     <Router>
-      <nav className="navbar navbar-expand-lg mb-4">
+      <nav className="navbar navbar-expand-lg sticky-top">
         <div className="container-fluid">
           <Link className="navbar-brand fw-bold d-flex align-items-center" to="/">
             <img src={process.env.PUBLIC_URL + '/octofitapp-small.png'} alt="OctoFit Logo" className="octofit-logo" />
             OctoFit Tracker
           </Link>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <button className="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item"><Link className="nav-link" to="/activities">Activities</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/leaderboard">Leaderboard</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/teams">Teams</Link></li>
@@ -31,16 +31,52 @@ function App() {
           </div>
         </div>
       </nav>
-      <div className="container">
+      <main className="container py-5">
         <Routes>
           <Route path="/activities" element={<Activities />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/teams" element={<Teams />} />
           <Route path="/users" element={<Users />} />
           <Route path="/workouts" element={<Workouts />} />
-          <Route path="/" element={<div className="p-5 mb-4 bg-light rounded-3"><h2 className="display-5 fw-bold">Welcome to OctoFit Tracker!</h2><p className="lead">Track your fitness, join teams, and compete on the leaderboard.</p></div>} />
+          <Route path="/" element={
+            <div className="row">
+              <div className="col-lg-8 mx-auto">
+                <div className="card border-0 shadow-lg">
+                  <div className="card-header text-center py-5">
+                    <h1 className="display-5 fw-bold mb-3">Welcome to OctoFit Tracker!</h1>
+                    <p className="lead text-white mb-0">Track your fitness, join teams, and compete on the leaderboard.</p>
+                  </div>
+                  <div className="card-body p-5">
+                    <div className="row text-center">
+                      <div className="col-md-4 mb-4">
+                        <div className="mb-3">
+                          <i className="bi bi-activity" style={{fontSize: '2rem', color: '#667eea'}}></i>
+                        </div>
+                        <h5 className="fw-bold">Track Activities</h5>
+                        <p className="text-muted small">Log your daily fitness activities and monitor progress.</p>
+                      </div>
+                      <div className="col-md-4 mb-4">
+                        <div className="mb-3">
+                          <i className="bi bi-people" style={{fontSize: '2rem', color: '#667eea'}}></i>
+                        </div>
+                        <h5 className="fw-bold">Join Teams</h5>
+                        <p className="text-muted small">Connect with friends and create competitive teams.</p>
+                      </div>
+                      <div className="col-md-4 mb-4">
+                        <div className="mb-3">
+                          <i className="bi bi-trophy" style={{fontSize: '2rem', color: '#667eea'}}></i>
+                        </div>
+                        <h5 className="fw-bold">Compete</h5>
+                        <p className="text-muted small">Climb the leaderboard and earn fitness goals.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          } />
         </Routes>
-      </div>
+      </main>
     </Router>
   );
 }
