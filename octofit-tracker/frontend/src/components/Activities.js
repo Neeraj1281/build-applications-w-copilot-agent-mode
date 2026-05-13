@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { getApiBaseUrl } from '../api';
+//import { getApiBaseUrl } from '../api';
 
 const Activities = () => {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const endpoint = `${getApiBaseUrl()}/api/activities/`;
+  //const endpoint = `${getApiBaseUrl()}/api/activities/`;
+   const codespace = process.env.REACT_APP_CODESPACE_NAME;
+  const endpoint = codespace
+    ? `https://${codespace}-8000.app.github.dev/api/activities/`
+    : 'http://localhost:8000/api/activities/';
 
   useEffect(() => {
     const fetchActivities = async () => {
